@@ -11,13 +11,13 @@ def main():
     """
     st.set_page_config(page_title="Previsão de Criptomoedas", page_icon="₿📈", layout="wide")
 
-    # sidebar 
+    # Sidebar
     with st.sidebar:
         st.header("Escolha da Criptomoeda")
         crypto_id = st.selectbox("Selecione a criptomoeda", ["bitcoin", "ethereum", "dogecoin"])
         st.write("Use o seletor acima para escolher qual criptomoeda deseja acompanhar.")
         
-        # Fetch and display crypto inform
+        # Fetch and display crypto info
         crypto_info = get_crypto_info(crypto_id)
         if crypto_info:
             st.image(crypto_info['image']['large'], width=100)
@@ -41,36 +41,39 @@ def main():
         de criptomoedas como **Bitcoin**, **Ethereum** e **Dogecoin**. Aproveite para explorar gráficos interativos e obter previsões para até 90 dias.
     """)
 
-    # show current price and history
+    # Show current price and history
     st.header(f"💰 Preço atual e histórico de {crypto_id.capitalize()}")
     with st.spinner('Carregando dados...'):
         df = get_historical_data(crypto_id)
     if df is not None:
     
-        # prices 
+        # Prices plot
         fig = px.line(df, x='timestamp', y='price', title=f'Preço histórico de {crypto_id.capitalize()}')
         st.plotly_chart(fig, use_container_width=True)
         
-        # forecast
+        # Forecast
         st.header(f"📈 Previsão de preços futuros de {crypto_id.capitalize()}")
-        st.write("Previsão baseada nos dados históricos dos últimos 365 dias, utilizando o modelo Prophet.")
+        
+        st.write("Previsão baseada nos dados históricos dos últimos 365 dias, utilizando o modelo LSTM.")
         
         periods = st.slider("Selecione o número de dias para previsão", 1, 90, 30)
         
         with st.spinner('Gerando previsões...'):
             forecast = predict_future_prices(df, periods)
+            st.write(forecast)  # Debug print to check the forecast DataFrame
         
-        # forecast graph 
-        fig_forecast = px.line(forecast, x='ds', y='yhat', title=f'Previsão de preço futuro para {crypto_id.capitalize()} (Próximos {periods} dias)')
+        # Forecast graph
+        fig_forecast = px.line(forecast, x='ds', y='forecast', title=f'Previsão de preço futuro para {crypto_id.capitalize()} (Próximos {periods} dias)')
         st.plotly_chart(fig_forecast, use_container_width=True)
 
-        st.subheader("Tabela de Previsões")
-        st.dataframe(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(periods))
+        #st.subheader("Tabela de Previsões")
+        #st.dataframe(forecast[['ds', 'forecast']].tail(periods))
   
     st.divider()
 
-    if st.button("🔄 Atualizar dados"):
-        st.experimental_rerun()
+    #if st.button("🔄 Atualizar dados"):
+    #    st.experimental_rerun()
+    
     random_quote = get_not_so_random_quote()
 
     st.markdown(
