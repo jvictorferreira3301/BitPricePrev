@@ -3,12 +3,13 @@ import pandas as pd
 import plotly.express as px
 from data_fetcher import get_historical_data, get_crypto_info
 from predictor import predict_future_prices
+from in_utils import get_not_so_random_quote
 
 def main():
     """
     Main function to run the Streamlit app.
     """
-    st.set_page_config(page_title="Previsão de Criptomoedas", page_icon="📈", layout="wide")
+    st.set_page_config(page_title="Previsão de Criptomoedas", page_icon="₿📈", layout="wide")
 
     # sidebar 
     with st.sidebar:
@@ -70,6 +71,26 @@ def main():
 
     if st.button("🔄 Atualizar dados"):
         st.experimental_rerun()
+    random_quote = get_not_so_random_quote()
+
+    st.markdown(
+        f"""
+        <style>
+        @keyframes dance {{
+            0% {{ transform: translateY(0); }}
+            50% {{ transform: translateY(-10px); }}
+            100% {{ transform: translateY(0); }}
+        }}
+        .dance {{
+            animation: dance 1s infinite;
+        }}
+        </style>
+        <div class='dance' style='text-align: center; font-family: "Hack", Courier, monospace; font-size: 24px; color: #ffe600;'>
+            {random_quote}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
         
 if __name__ == "__main__":
     main()
