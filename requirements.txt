@@ -2,4 +2,5 @@ requests
 streamlit
 pandas
 plotly
-darts
+prophet
+
