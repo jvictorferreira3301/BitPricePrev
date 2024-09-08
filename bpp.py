@@ -2,12 +2,11 @@ import requests
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from darts import TimeSeries
+from darts.models import ExponentialSmoothing
 
 @st.cache_data
 def get_crypto_price(crypto_id):
-    """
-    Fetch the current price of the cryptocurrency from the CoinGecko API.
-    """
     url = f"https://api.coingecko.com/api/v3/simple/price?ids={crypto_id}&vs_currencies=brl"
     try:
         response = requests.get(url)
@@ -26,9 +25,6 @@ def get_crypto_price(crypto_id):
 
 @st.cache_data
 def get_historical_data(crypto_id):
-    """
-    Fetch the historical price data of the cryptocurrency from the CoinGecko API.
-    """
     url = f"https://api.coingecko.com/api/v3/coins/{crypto_id}/market_chart?vs_currency=brl&days=30"
     try:
         response = requests.get(url)
@@ -48,10 +44,14 @@ def get_historical_data(crypto_id):
         st.error(f"Erro ao obter dados históricos: {e}")
         return None
 
+def forecast_prices(df):
+    series = TimeSeries.from_dataframe(df, 'timestamp', 'price')
+    model = ExponentialSmoothing()
+    model.fit(series)
+    future = model.predict(60)
+    return future
+
 def main():
-    """
-    Main function to run the Streamlit app.
-    """
     st.title("Preço de Criptomoedas")
     
     crypto_id = st.selectbox("Selecione a criptomoeda", ["bitcoin", "ethereum", "dogecoin"])
@@ -66,9 +66,19 @@ def main():
     if df is not None:
         fig = px.line(df, x='timestamp', y='price', title=f'Preço histórico de {crypto_id.capitalize()}')
         st.plotly_chart(fig)
+        
+        st.header(f"Previsão de preços futuros de {crypto_id.capitalize()}")
+        try:
+            future = forecast_prices(df)
+            future_df = future.pd_dataframe()
+            fig_future = px.line(future_df, x='time', y='value', title=f'Previsão de preços de {crypto_id.capitalize()}')
+            st.plotly_chart(fig_future)
+        except Exception as e:
+            st.error(f"Erro ao gerar previsão: {e}")
     
     if st.button("Atualizar"):
         st.experimental_rerun()
 
 if __name__ == "__main__":
     main()
+
