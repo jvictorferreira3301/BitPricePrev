@@ -13,7 +13,7 @@ def main():
     # sidebar 
     with st.sidebar:
         st.header("Escolha da Criptomoeda")
-        crypto_id = st.selectbox("Selecione a criptomoeda", ["bihtcoin", "ethereum", "dogecoin"])
+        crypto_id = st.selectbox("Selecione a criptomoeda", ["bitcoin", "ethereum", "dogecoin"])
         st.write("Use o seletor acima para escolher qual criptomoeda deseja acompanhar.")
         
         # Fetch and display crypto inform
@@ -56,14 +56,14 @@ def main():
         
         periods = st.slider("Selecione o número de dias para previsão", 1, 90, 30)
         
-        with st.spinner('Ger previsões...'):
+        with st.spinner('Gerando previsões...'):
             forecast = predict_future_prices(df, periods)
         
         # Mgráfico com previsão
         fig_forecast = px.line(forecast, x='ds', y='yhat', title=f'Previsão de preço futuro para {crypto_id.capitalize()} (Próximos {periods} dias)')
         st.plotly_chart(fig_forecast, use_container_width=True)
 
-        st.subheader("Tabela de  Previsões")
+        st.subheader("Tabela de Previsões")
         st.dataframe(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(periods))
   
     st.divider()
