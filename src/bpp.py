@@ -40,17 +40,17 @@ def main():
         de criptomoedas como **Bitcoin**, **Ethereum** e **Dogecoin**. Aproveite para explorar gráficos interativos e obter previsões para até 90 dias.
     """)
 
-    # Mostra o preço atual e gráfico histórico
+    # show current price and history
     st.header(f"💰 Preço atual e histórico de {crypto_id.capitalize()}")
     with st.spinner('Carregando dados...'):
         df = get_historical_data(crypto_id)
     if df is not None:
     
-        # gráfico  de preços
+        # prices 
         fig = px.line(df, x='timestamp', y='price', title=f'Preço histórico de {crypto_id.capitalize()}')
         st.plotly_chart(fig, use_container_width=True)
         
-        # Previsão de preços futuros
+        # forecast
         st.header(f"📈 Previsão de preços futuros de {crypto_id.capitalize()}")
         st.write("Previsão baseada nos dados históricos dos últimos 365 dias, utilizando o modelo Prophet.")
         
@@ -59,7 +59,7 @@ def main():
         with st.spinner('Gerando previsões...'):
             forecast = predict_future_prices(df, periods)
         
-        # Mgráfico com previsão
+        # forecast graph 
         fig_forecast = px.line(forecast, x='ds', y='yhat', title=f'Previsão de preço futuro para {crypto_id.capitalize()} (Próximos {periods} dias)')
         st.plotly_chart(fig_forecast, use_container_width=True)
 
