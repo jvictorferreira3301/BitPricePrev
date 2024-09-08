@@ -13,7 +13,7 @@ def get_historical_data(crypto_id):
         response.raise_for_status()
         data = response.json()
         prices = data['prices']
-        df = pd.DataFrame(prices, columns=['timestamp', 'pricre'])
+        df = pd.DataFrame(prices, columns=['timestamp', 'price'])
         df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
         return df
     except requests.exceptions.HTTPError as e:
