@@ -6,12 +6,12 @@ BitPricePrev é uma aplicação interativa desenvolvida com Streamlit para visua
 
 ## 🛠️ Tecnologias Usadas
 
-- **Streamlit**: Framework para criação de aplicativos web interativos.
-- **Pandas**: Biblioteca para manipulação e análise de dados.
-- **Plotly**: Biblioteca para criação de gráficos interativos.
-- **Scikit-learn**: Biblioteca para aprendizado de máquina.
-- **TensorFlow**: Biblioteca para construção e treinamento de modelos de aprendizado profundo.
-- **Keras**: Biblioteca de alto nível para construção e treinamento de redes neurais, integrada ao TensorFlow.
+- <a href='https://streamlit.io/' target="_blank"><img alt='streamlit' src='https://img.shields.io/badge/Streamlit-100000?style=for-the-badge&logo=streamlit&logoColor=white&labelColor=FF6600&color=FF6600'/></a> : Framework para criação de aplicativos web interativos.
+- ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white) Biblioteca para manipulação e análise de dados.
+- ![Plotly](https://img.shields.io/badge/Plotly-%233F4F75.svg?style=for-the-badge&logo=plotly&logoColor=white) Biblioteca para criação de gráficos interativos.
+- ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white) Biblioteca para aprendizado de máquina.
+- ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white) Biblioteca para construção e treinamento de modelos de aprendizado profundo.
+- ![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white) Biblioteca de alto nível para construção e treinamento de redes neurais, integrada ao TensorFlow.
 
 
 ## 📥 Rodando localmente
