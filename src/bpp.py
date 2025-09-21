@@ -507,34 +507,6 @@ def main():
         """,
         unsafe_allow_html=True
     )
-    
-    # App info
-    with st.expander("ℹ️ Sobre o BitPricePrev"):
-        st.markdown("""
-        ### 🚀 BitPricePrev - Análise Avançada de Criptomoedas
-        
-        **Funcionalidades:**
-        - 📊 **Análise técnica completa** com indicadores avançados
-        - 🤖 **Múltiplos modelos de ML** (LSTM, Random Forest, Regressão Linear)
-        - 📈 **Gráficos interativos** com Plotly
-        - 🎯 **Sinais de trading** automáticos
-        - 📋 **Comparação** entre diferentes criptomoedas
-        - 🌍 **Visão geral do mercado** em tempo real
-        
-        **Indicadores Técnicos:**
-        - RSI (Relative Strength Index)
-        - Bandas de Bollinger
-        - MACD (Moving Average Convergence Divergence)
-        - Médias Móveis (7, 21, 50 dias)
-        - Suporte e Resistência
-        
-        **Modelos de Previsão:**
-        - **LSTM**: Rede neural recorrente para séries temporais
-        - **Random Forest**: Ensemble de árvores de decisão
-        - **Regressão Linear**: Modelo linear com indicadores técnicos
-        
-        Desenvolvido com ❤️ usando Streamlit, Plotly e TensorFlow.
-        """)
 
 if __name__ == "__main__":
     main()
